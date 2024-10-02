@@ -23,9 +23,8 @@ class User(Base):
     
 
 class Product(Base):
-    name = models.TextField(blank=False)
-    description = models.TextField(blank=True)
-    price = models.DecimalField( max_digits=30, decimal_places=2)
+    name = models.TextField(blank=True)
+    price = models.DecimalField(decimal_places=2)
 
     class Meta:
         verbose_name = "Product"
