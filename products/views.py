@@ -64,7 +64,7 @@ class LoginAuthView(APIView):
             
             response.data = {
                 'refresh': str(refresh),
-                'access': str(refresh.access_token),
+                'accessToken': str(refresh.access_token),
             }
             return response
 

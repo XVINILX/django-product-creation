@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: product
+      POSTGRES_USER: myusertest
+      POSTGRES_PASSWORD: mypasswordtest
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_NAME=product
+      - DB_USER=myusertest
+      - DB_PASSWORD=mypasswordtest
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DATABASE_URL=postgres://myusertest:mypasswordtest@db:5432/product
+
+volumes:
+  postgres_data:
