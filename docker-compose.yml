@@ -21,12 +21,12 @@ services:
     depends_on:
       - db
     environment:
-      - DB_NAME=product
-      - DB_USER=myusertest
-      - DB_PASSWORD=mypasswordtest
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DATABASE_URL=postgres://myusertest:mypasswordtest@db:5432/product
+        - DB_PSQL_NAME=product
+        - DB_PSQL_USER=myusertest
+        - DB_PSQL_PASSWORD=mypasswordtest
+        - DB_HOST=db
+        - DB_PORT=5432
+        - DATABASE_URL=postgres://myusertest:mypasswordtest@db:5432/product
 
 volumes:
   postgres_data:
