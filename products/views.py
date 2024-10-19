@@ -10,18 +10,25 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth import authenticate
 from rest_framework import status
 from django.conf import settings
-
-
-
+from rest_framework.pagination import PageNumberPagination
+from django_filters.rest_framework import DjangoFilterBackend
+class ProductPagination(PageNumberPagination):
+    page_size = 5
 
 class ProductsView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = {
+        'price': ['exact', 'gte', 'lte'],  # Defina para suportar comparações
+        'name': ['exact'],  # Outros campos de filtro
+    }
+    pagination_class = ProductPagination
 
-    def get_permissions(self):
-        if self.request.method == 'GET':
-            return [AllowAny()]  
-        return [IsAuthenticated()]
+    # def get_permissions(self):
+    #     if self.request.method == 'GET':
+    #         return [AllowAny()]  
+    #     return [IsAuthenticated()]
 
 
 
